@@ -74,20 +74,22 @@ const Form = () => {
         options={options}
         onChange={({ value }) => {
           let arr = []
-          for (let i = 1; i <= value*value; i++) {
+          for (let i = 1; i <= value * value; i++) {
             arr.push(i)
           }
           setSquares(arr)
         }}
       />}
       <ul className={`form_squares-list width-${Math.sqrt(squares.length)}`}>
-        {squares.map((item, idx) => <li
-          // onMouseOver={(e) => {
-          //   console.log(e.currentTarget.value)
-          // }}
-          key={item}
-          value={item}
-        ><Box number={item}/></li>)}
+        {squares.map((item, idx) => {
+          const row = Math.ceil(item / Math.sqrt(squares.length))
+          return (<li
+            // onMouseOver={(e) => {
+            //   console.log(e.currentTarget.value)
+            // }}
+            key={item}
+          ><Box row={row} /></li>)
+        })}
       </ul>
     </>
   )
