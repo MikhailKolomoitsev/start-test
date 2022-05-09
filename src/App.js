@@ -1,15 +1,13 @@
-import Select from "./components/Select";
-import Box from "./components/Select/Box/Box";
+import axios from 'axios';
+import React, { useState } from 'react';
+import { useEffect } from 'react';
+import Form from './components/Form';
 
 function App() {
-  return (
-    <div className="App" id='test-app'>
-      <header className="App-header">
-        <Select></Select>
 
-        
-        {/* <Box/> */}
-      </header>
+  return (
+    <div className="App" id="test-app">
+      <Form  />
     </div>
   );
 }
