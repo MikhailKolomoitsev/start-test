@@ -5,24 +5,25 @@ import { useEffect } from 'react';
 import Select from 'react-select';
 import ContentLoader from '../ContentLoader';
 import Box from '../Box';
-import './Form.scss'
+import './Form.scss';
 
 const Form = () => {
-  const [isLoading, setIsLoading] = useState(true)
-  const [options, setOptions] = useState([])
-  const [squares, setSquares] = useState(new Array(5))
+  const [isLoading, setIsLoading] = useState(true);
+  const [options, setOptions] = useState([]);
+  const [squares, setSquares] = useState(new Array(5));
 
   useEffect(() => {
     async function fetchData() {
-      const { data } = await axios.get('http://demo7919674.mockable.io/')
-      setIsLoading(false)
-      setOptions(data.map(i => {
-        return ({ label: i['name'], value: i['field'] })
-      }
-      ))
+      const { data } = await axios.get('http://demo7919674.mockable.io/');
+      setIsLoading(false);
+      setOptions(
+        data.map((i) => {
+          return { label: i['name'], value: i['field'] };
+        }),
+      );
     }
-    fetchData()
-  }, [])
+    fetchData();
+  }, []);
 
   const customStyles = useMemo(
     () => ({
@@ -62,37 +63,50 @@ const Form = () => {
     [],
   );
 
+  function findColumn(item, length) {
+    let column = 0;
+    if (item > length) {
+      column = item - length;
+      return findColumn(column, length);
+    } else {
+      column = item;
+      return column;
+    }
+  }
 
   return (
     <>
       <ContentLoader visible={isLoading} />
-      {options.length > 0 && <Select
-        className="form_select"
-        isSearchable={false}
-        styles={customStyles}
-        defaultValue={options[0]}
-        options={options}
-        onChange={({ value }) => {
-          let arr = []
-          for (let i = 1; i <= value * value; i++) {
-            arr.push(i)
-          }
-          setSquares(arr)
-        }}
-      />}
-      <ul className={`form_squares-list width-${Math.sqrt(squares.length)}`}>
+      {options.length > 0 && (
+        <Select
+          className="form-select"
+          isSearchable={false}
+          styles={customStyles}
+          defaultValue={options[0]}
+          options={options}
+          onChange={({ value }) => {
+            let arr = [];
+            for (let i = 1; i <= value * value; i++) {
+              arr.push(i);
+            }
+            setSquares(arr);
+          }}
+        />
+      )}
+      <ul className={`form-squares-list width-${Math.sqrt(squares.length)}`}>
         {squares.map((item, idx) => {
-          const row = Math.ceil(item / Math.sqrt(squares.length))
-          return (<li
-            // onMouseOver={(e) => {
-            //   console.log(e.currentTarget.value)
-            // }}
-            key={item}
-          ><Box row={row} /></li>)
+          const row = Math.ceil(item / Math.sqrt(squares.length));
+          const column = findColumn(item, Math.sqrt(squares.length));
+
+          return (
+            <li key={item}>
+              <Box row={row} column={column} />
+            </li>
+          );
         })}
       </ul>
     </>
-  )
+  );
 };
 
 export default Form;

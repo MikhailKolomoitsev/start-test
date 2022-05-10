@@ -1,3 +1,3 @@
-export const boxesMap=[]
+export const boxesMap = [];
 
-export default boxesMap
+export default boxesMap;

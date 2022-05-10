@@ -1,3 +1,3 @@
-import ContentLoader from "./ContentLoader";
+import ContentLoader from './ContentLoader';
 
-export default ContentLoader
+export default ContentLoader;
