@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 import { useMemo } from 'react';
 import { useEffect } from 'react';
 import Select from 'react-select';
 import ContentLoader from '../ContentLoader';
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Box from '../Box';
 import './Form.scss';
 
@@ -75,10 +77,16 @@ const Form = () => {
     }
   }
 
-  const notify = (row, column) => toast(`Row ${row} Column ${column}`);
+  const notify = (row, column) => {
+    console.log('render');
+    return toast(`Row ${row} Column ${column}`, {
+      // toastId: uuidv4()
+    });
+  };
 
   return (
     <>
+      <ToastContainer autoClose={800} visible={!isLoading} limit={5} />
       <ContentLoader visible={isLoading} />
       {options.length > 0 && (
         <Select
@@ -102,18 +110,17 @@ const Form = () => {
           const column = findColumn(item, Math.sqrt(squares.length));
 
           return (
-            <li key={item}
-              onMouseOver={() => {
+            <li
+              key={uuidv4()}
+              onMouseEnter={() => {
                 notify(row, column);
-              }}>
-              <Box
-                key={item + ''}
-                row={row} column={column} />
+              }}
+            >
+              <Box key={item + ''} row={row} column={column} />
             </li>
           );
         })}
       </ul>
-      <ToastContainer autoClose={800} />
     </>
   );
 };

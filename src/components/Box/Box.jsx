@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import 'react-toastify/dist/ReactToastify.css';
 import './Box.scss';
 
 const Box = ({ row, column }) => {
