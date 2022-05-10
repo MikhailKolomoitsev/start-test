@@ -4,6 +4,7 @@ import { useMemo } from 'react';
 import { useEffect } from 'react';
 import Select from 'react-select';
 import ContentLoader from '../ContentLoader';
+import { ToastContainer, toast } from 'react-toastify';
 import Box from '../Box';
 import './Form.scss';
 
@@ -74,6 +75,8 @@ const Form = () => {
     }
   }
 
+  const notify = (row, column) => toast(`Row ${row} Column ${column}`);
+
   return (
     <>
       <ContentLoader visible={isLoading} />
@@ -99,12 +102,18 @@ const Form = () => {
           const column = findColumn(item, Math.sqrt(squares.length));
 
           return (
-            <li key={item}>
-              <Box row={row} column={column} />
+            <li key={item}
+              onMouseOver={() => {
+                notify(row, column);
+              }}>
+              <Box
+                key={item + ''}
+                row={row} column={column} />
             </li>
           );
         })}
       </ul>
+      <ToastContainer autoClose={5500} />
     </>
   );
 };
