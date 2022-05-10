@@ -15,7 +15,7 @@ const Form = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const { data } = await axios.get('http://demo7919674.mockable.io/');
+      const { data } = await axios.get('https://demo7919674.mockable.io');
       setIsLoading(false);
       setOptions(
         data.map((i) => {
@@ -113,7 +113,7 @@ const Form = () => {
           );
         })}
       </ul>
-      <ToastContainer autoClose={5500} />
+      <ToastContainer autoClose={800} />
     </>
   );
 };
