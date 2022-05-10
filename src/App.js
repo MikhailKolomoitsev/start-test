@@ -1,6 +1,4 @@
-import axios from 'axios';
-import React, { useState } from 'react';
-import { useEffect } from 'react';
+import React from 'react';
 import Form from './components/Form';
 
 function App() {
