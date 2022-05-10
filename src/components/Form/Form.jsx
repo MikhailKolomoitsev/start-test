@@ -80,13 +80,13 @@ const Form = () => {
   const notify = (row, column) => {
     console.log('render');
     return toast(`Row ${row} Column ${column}`, {
-      // toastId: uuidv4()
+      toastId: uuidv4()
     });
   };
 
   return (
     <>
-      <ToastContainer autoClose={800} visible={!isLoading} limit={5} />
+      <ToastContainer autoClose={3800} visible={!isLoading} limit={5} />
       <ContentLoader visible={isLoading} />
       {options.length > 0 && (
         <Select
